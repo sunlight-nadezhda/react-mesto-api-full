@@ -1,0 +1,7 @@
+@media screen and (max-width: 425px) {
+    .header_menu-opened {
+        display: flex;
+        flex-direction: column-reverse;
+        position: relative;
+    }
+}

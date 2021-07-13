@@ -1,0 +1,11 @@
+.popup__container_type_info-tooltip {
+  background-color: #fff;
+  padding: 60px;
+  text-align: center;
+}
+
+@media screen and (max-width: 425px) {
+  .popup__container_type_info-tooltip {
+      padding: 50px 15px;
+  }
+}
