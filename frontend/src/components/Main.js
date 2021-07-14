@@ -1,11 +1,26 @@
-import React from "react";
+import React, { useContext, useEffect } from "react";
 import Card from "./Card";
 import Header from "./Header";
 import Footer from "./Footer";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
+import { CardsContext } from "../contexts/CardsContext";
 
 function Main(props) {
-    const currentUser = React.useContext(CurrentUserContext);
+    const currentUserContext = useContext(CurrentUserContext);
+    const currentUser = currentUserContext.currentUser;
+    console.log(currentUser);
+    useEffect(() => {
+        currentUserContext.fetchUserInfo();
+        currentUserContext.checkToken();
+    }, []);
+
+    const cardsContext = useContext(CardsContext);
+    useEffect(() => {
+        cardsContext.fetchCards();
+    }, []);
+
+    var cards = cardsContext.cards;
+
 
     return (
         <div className="page__content">
@@ -54,7 +69,7 @@ function Main(props) {
 
                 <section aria-label="Карточки с местами">
                     <ul className="cards">
-                        {props.cards.map((cardInfo) => (
+                        {cards.map((cardInfo) => (
                             <Card
                                 card={cardInfo}
                                 key={cardInfo._id}

@@ -7,9 +7,10 @@ class Auth {
     return fetch(`${this._url}/signup`, {
       method: 'POST',
       headers: {
-        "Content-Type": "application/json"
+        'Content-Type': 'application/json'
       },
-      body: JSON.stringify({email, password})
+      body: JSON.stringify({email, password}),
+      credentials: 'include'
     })
     .then(this._getResponseData);
   }
@@ -18,11 +19,16 @@ class Auth {
     return fetch(`${this._url}/signin`, {
       method: 'POST',
       headers: {
-        "Content-Type": "application/json"
+        'Content-Type': 'application/json'
       },
-      body: JSON.stringify({email, password})
+      body: JSON.stringify({email, password}),
+      credentials: 'include'
     })
-    .then(this._getResponseData);
+    .then((response) => {
+      if (!response.ok) {
+        return Promise.reject(new Error(`Ошибка ${response.status}`));
+      }
+    });
   }
 
   getContent(token) {
@@ -44,6 +50,7 @@ class Auth {
   }
 }
 
-const auth = new Auth("https://auth.nomoreparties.co");
+const auth = new Auth("http://localhost:3001");
+// const auth = new Auth("https://mesto-back.nomoredomains.rocks");
 
 export default auth;
