@@ -24,11 +24,7 @@ class Auth {
       body: JSON.stringify({email, password}),
       credentials: 'include'
     })
-    .then((response) => {
-      if (!response.ok) {
-        return Promise.reject(new Error(`Ошибка ${response.status}`));
-      }
-    });
+    .then(this._getResponseData);
   }
 
   getContent(token) {

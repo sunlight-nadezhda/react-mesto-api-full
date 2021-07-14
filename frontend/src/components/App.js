@@ -71,6 +71,7 @@ function App() {
         api.setUserInfo(data, token)
             .then((userData) => {
                 setIsLoading(false);
+                console.log('!!! 1', userData)
                 setCurrentUser(userData);
                 closeAllPopups();
             })
@@ -84,6 +85,7 @@ function App() {
         api.setUserAvatar(obj.avatar, token)
             .then((userData) => {
                 setIsLoading(false);
+                console.log('!!! 2', userData)
                 setCurrentUser(userData);
                 closeAllPopups();
             })
@@ -152,16 +154,15 @@ function App() {
 
     function onLogin(userData) {
         auth.authorize(userData)
-            // .then((data) => {
-            //     // console.log(data.cookies);
-                // console.log(document.cookie);
-            //     // if (data.token) {
-            //     //     localStorage.setItem("token", data.token);
-            //     //     setUserData(userData);
-            //     //     setLoggedIn(true);
-            //     //     history.push("/");
-            //     // }
-            // })
+            .then((data) => {
+                console.log(data.cookies);
+                if (data.token) {
+                    localStorage.setItem("token", data.token);
+                    setUserData(userData);
+                    setLoggedIn(true);
+                    history.push("/");
+                }
+            })
             .catch((err) => console.log(err));
     }
 
@@ -193,6 +194,7 @@ function App() {
         console.log(token);
         return api.getUserInfo(token)
             .then((userInfo) => {
+                console.log('!!! 3', userInfo)
                 setCurrentUser(userInfo);
             })
             .catch((err) => {

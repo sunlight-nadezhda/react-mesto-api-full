@@ -9,7 +9,9 @@ function Card(props) {
         currentUserContext.checkToken();
     }, []);
 
-    const isOwn = props.card.owner._id === currentUser._id;
+    if (!currentUser) return null;
+
+    const isOwn =  !!props.card.owner && (props.card.owner._id === currentUser._id);
     const isLiked = props.card.likes.some((i) => i._id === currentUser._id);
 
     const cardLikeButtonClassName = `button card__like-button${isLiked ? " card__like-button_active" : ""}`;
