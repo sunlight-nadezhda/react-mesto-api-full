@@ -3,6 +3,6 @@
 
 Пожалуйста, прикрепите в это описание ссылку на сайт, размещенный на Яндекс.Облаке.
 
-публичный IP-адрес сервера: 84.252.130.245
-frontend: mesto-front.nomoredomains.rocks
-backend: mesto-back.nomoredomains.rocks
+публичный IP-адрес сервера: 84.252.130.245  
+frontend: mesto-front.nomoredomains.rocks  
+backend: mesto-back.nomoredomains.rocks  
