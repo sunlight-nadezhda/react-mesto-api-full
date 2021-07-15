@@ -1,0 +1,43 @@
+{
+  "name": "express-mesto",
+  "version": "1.0.0",
+  "description": "Бэкенд для проекта Место",
+  "main": "app.js",
+  "scripts": {
+    "lint": "npx eslint",
+    "start": "node app.js",
+    "dev": "nodemon app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sunlight-nadezhda/express-mesto.git"
+  },
+  "keywords": [],
+  "author": "Nadezhda Malokhatko",
+  "license": "",
+  "bugs": {
+    "url": "https://github.com/sunlight-nadezhda/express-mesto/issues"
+  },
+  "homepage": "https://github.com/sunlight-nadezhda/express-mesto#readme",
+  "devDependencies": {
+    "crypto": "^1.0.1",
+    "eslint": "^7.28.0",
+    "eslint-config-airbnb-base": "^14.2.1",
+    "eslint-plugin-import": "^2.23.4",
+    "nodemon": "^2.0.7"
+  },
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.19.0",
+    "celebrate": "^14.0.0",
+    "cookie-parser": "^1.4.5",
+    "cors": "^2.8.5",
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "express-winston": "^4.1.0",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^5.12.13",
+    "validator": "^13.6.0",
+    "winston": "^3.3.3"
+  }
+}

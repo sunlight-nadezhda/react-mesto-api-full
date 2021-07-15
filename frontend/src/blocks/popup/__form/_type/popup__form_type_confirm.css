@@ -1,0 +1,9 @@
+.popup__form_type_confirm {
+  margin-top: 0;
+}
+
+@media (max-width: 760px) {
+  .popup__form_type_confirm {
+    margin-top: 0;
+  }
+}

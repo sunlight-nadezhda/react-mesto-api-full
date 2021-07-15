@@ -1,0 +1,13 @@
+.header__button-menu {
+    background-image: url("../../../images/menu-icon.svg");
+    background-repeat: no-repeat;
+    width: 24px;
+    height: 18px;
+    display: none;
+}
+
+@media screen and (max-width: 425px) {
+    .header__button-menu {
+        display: block;
+    }
+}

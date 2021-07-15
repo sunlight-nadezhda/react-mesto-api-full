@@ -1,0 +1,5 @@
+@media (max-width: 760px) {
+  .popup__form_type_edit-avatar {
+    margin-top: 0;
+  }
+}

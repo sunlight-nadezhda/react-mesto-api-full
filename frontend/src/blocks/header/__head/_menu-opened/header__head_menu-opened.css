@@ -1,0 +1,5 @@
+@media screen and (max-width: 425px) {
+  .header__head_menu-opened {
+    padding-top: 27px;
+  }
+}

@@ -1,0 +1,18 @@
+.logo {
+  text-decoration: none;
+  width: 142px;
+  height: 33px;
+  transition: opacity 2s linear;
+}
+
+.logo:hover {
+  opacity: .2;
+  cursor: pointer;
+}
+
+@media (max-width: 760px) {
+  .logo {
+    width: 104px;
+    height: 24px;
+  }
+}

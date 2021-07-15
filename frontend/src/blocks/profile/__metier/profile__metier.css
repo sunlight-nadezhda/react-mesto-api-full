@@ -1,0 +1,23 @@
+.profile__metier {
+  margin: 0;
+  font-weight: normal;
+  font-size: 18px;
+  line-height: calc(22 / 18);
+  grid-area: metier;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+@media (max-width: 1020px) {
+  .profile__metier {
+    text-align: center;
+  }
+}
+
+@media (max-width: 760px) {
+  .profile__metier {
+    font-size: 14px;
+    line-height: calc(17 / 14);
+  }
+}
