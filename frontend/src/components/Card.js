@@ -6,7 +6,7 @@ function Card(props) {
     const currentUser = currentUserContext.currentUser;
     useEffect(() => {
         currentUserContext.fetchUserInfo();
-        currentUserContext.checkToken();
+        // currentUserContext.checkToken();
     }, []);
 
     if (!currentUser) return null;

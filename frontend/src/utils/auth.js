@@ -27,13 +27,20 @@ class Auth {
     .then(this._getResponseData);
   }
 
-  getContent(token) {
+  // getContent(token) {
+  //   return fetch(`${this._url}/users/me`, {
+  //     method: 'GET',
+  //     headers: {
+  //       'Content-Type': 'application/json',
+  //       'Authorization': `Bearer ${token}`,
+  //     }
+  //   })
+  //   .then(this._getResponseData);
+  // }
+
+  checkToken() {
     return fetch(`${this._url}/users/me`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token}`,
-      }
+      method: 'GET'
     })
     .then(this._getResponseData);
   }

@@ -154,10 +154,8 @@ function App() {
 
     function onLogin(userData) {
         auth.authorize(userData)
-            .then((data) => {
-                console.log(data.cookies);
-                if (data.token) {
-                    localStorage.setItem("token", data.token);
+            .then((response) => {
+                if (response) {
                     setUserData(userData);
                     setLoggedIn(true);
                     history.push("/");
@@ -166,32 +164,27 @@ function App() {
             .catch((err) => console.log(err));
     }
 
-    function checkToken() {
-        const token = localStorage.getItem("token");
-        if (token) {
-            setToken(token);
-            auth.getContent(token)
+    function checkAuth() {
+        auth.checkToken()
                 .then((userData) => {
-                    if (userData.data) {
-                        setUserData(userData.data);
+                    if (userData) {
+                        setUserData(userData);
                         setLoggedIn(true);
                         history.push("/");
                     }
                 })
                 .catch((err) => console.log(err));
-        }
     }
 
     function onSignOut() {
         if (loggedIn) {
-            localStorage.removeItem("token");
+            // localStorage.removeItem("token");
             setLoggedIn(false);
             setUserData(null);
         }
     }
 
     function fetchUserInfo() {
-        console.log(token);
         return api.getUserInfo(token)
             .then((userInfo) => {
                 console.log('!!! 3', userInfo)
@@ -229,8 +222,12 @@ function App() {
     //     checkToken();
     // }, []);
 
+    useEffect(() => {
+        checkAuth();
+    }, []);
+
     return (
-        <CurrentUserContext.Provider value={{ currentUser, fetchUserInfo, checkToken }}>
+        <CurrentUserContext.Provider value={{ currentUser, fetchUserInfo }}>
             <CardsContext.Provider value={{ cards, fetchCards }} >
                 <div className="page">
                     <Switch>

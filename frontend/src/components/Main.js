@@ -11,7 +11,7 @@ function Main(props) {
     console.log(currentUser);
     useEffect(() => {
         currentUserContext.fetchUserInfo();
-        currentUserContext.checkToken();
+        // currentUserContext.checkToken();
     }, []);
 
     const cardsContext = useContext(CardsContext);

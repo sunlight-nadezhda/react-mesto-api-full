@@ -46,7 +46,8 @@ class Api {
       body: JSON.stringify({
         name: data.name,
         about: data.about
-      })
+      }),
+      credentials: 'include'
     })
       .then(this._getResponseData);
   }
