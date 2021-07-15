@@ -1,40 +1,34 @@
 class Api {
   constructor(options) {
     this._url = options.baseUrl;
-    // this._headers = options.headers;
+    this._headers = options.headers;
   }
 
-  getInitialCards(token) {
+  getInitialCards() {
     return fetch(`${this._url}/cards`, {
       headers: {
-        'Authorization': `Bearer ${token}`,
-      },
-      credentials: 'include'
+        authorization: this._headers.authorization
+      }
     })
       .then(this._getResponseData);
   }
 
-  getUserInfo(token) {
+  getUserInfo() {
     return fetch(`${this._url}/users/me`, {
       headers: {
-        'Authorization': `Bearer ${token}`,
-      },
-      credentials: 'include'
+        authorization: this._headers.authorization
+      }
     })
       .then(this._getResponseData);
   }
 
-  setUserAvatar(data, token) {
+  setUserAvatar(data) {
     return fetch(`${this._url}/users/me/avatar`, {
       method: 'PATCH',
-      headers: {
-        'Authorization': `Bearer ${token}`,
-        'Content-Type': 'application/json',
-      },
+      headers: this._headers,
       body: JSON.stringify({
         avatar: data
-      }),
-      credentials: 'include'
+      })
     })
       .then(this._getResponseData);
   }
@@ -46,8 +40,7 @@ class Api {
       body: JSON.stringify({
         name: data.name,
         about: data.about
-      }),
-      credentials: 'include'
+      })
     })
       .then(this._getResponseData);
   }
@@ -64,14 +57,14 @@ class Api {
       .then(this._getResponseData);
   }
 
-  deleteCard(cardId, token) {
+  deleteCard(cardId) {
     return fetch(`${this._url}/cards/${cardId}`, {
       method: 'DELETE',
       headers: {
-        'Authorization': `Bearer ${token}`,
+        authorization: this._headers.authorization
       }
     })
-      .then(this._getResponseData);
+    .then(this._getResponseData);
   }
 
   addLike(cardId, cardLikes) {
@@ -85,34 +78,23 @@ class Api {
       .then(this._getResponseData);
   }
 
-  deleteLike(cardId, token) {
+  deleteLike(cardId) {
     return fetch(`${this._url}/cards/likes/${cardId}`, {
       method: 'DELETE',
       headers: {
-        'Authorization': `Bearer ${token}`,
+        authorization: this._headers.authorization
       }
     })
-      .then(this._getResponseData);
+    .then(this._getResponseData);
   }
 
-  changeLikeCardStatus(cardId, isLiked, cardLikes, token) {
+  changeLikeCardStatus(cardId, isLiked, cardLikes) {
     if (isLiked) {
       return this.addLike(cardId, cardLikes);
     } else {
-      return this.deleteLike(cardId, token);
+      return this.deleteLike(cardId);
     }
   }
-
-  // getContent(token) {
-  //   return fetch(`${this._url}/users/me`, {
-  //     method: 'GET',
-  //     headers: {
-  //       'Content-Type': 'application/json',
-  //       'Authorization': `Bearer ${token}`,
-  //     }
-  //   })
-  //     .then(this._getResponseData);
-  // }
 
   _getResponseData(response) {
     if (response.ok) {
@@ -123,12 +105,11 @@ class Api {
 }
 
 const api = new Api({
-  baseUrl: "http://localhost:3001",
-  // baseUrl: "https://mesto-back.nomoredomains.rocks",
-  // headers: {
-  //   // authorization: "1e5f7c98-03ad-4c6e-8333-1ab219b8293f",
-  //   "Content-Type": "application/json",
-  // }
+  baseUrl: "https://mesto.nomoreparties.co/v1/cohort-22",
+  headers: {
+    authorization: "1e5f7c98-03ad-4c6e-8333-1ab219b8293f",
+    "Content-Type": "application/json",
+  }
 });
 
 export default api;

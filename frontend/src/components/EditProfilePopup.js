@@ -3,11 +3,11 @@ import PopupWithForm from "./PopupWithForm";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
 
 function EditProfilePopup(props) {
-    const {currentUser} = React.useContext(CurrentUserContext);
-    const {name: userName = '', about: userDescription = ''} = currentUser || {};
+    const [name, setName] = React.useState("");
+    const [description, setDescription] = React.useState("");
+    const [isDisabled, setIsDisabled] = React.useState(true);
 
-    const [name, setName] = React.useState(null);
-    const [description, setDescription] = React.useState(null);
+    const currentUser = React.useContext(CurrentUserContext);
 
     function handleChangeName(e) {
         setName(e.target.value);
@@ -17,26 +17,30 @@ function EditProfilePopup(props) {
         setDescription(e.target.value);
     }
 
-    const displayName = name !== null ? name : userName;
-    const displayDescription = description !== null ? description : userDescription;
-
-
     function handleSubmit(e) {
         e.preventDefault();
+
         props.onUpdateUser({
-            name: displayName,
-            about: displayDescription,
+            name,
+            about: description,
         });
+
+        setName(currentUser.name);
+        setDescription(currentUser.about);
     }
 
-    function handleClose() {
-        setName(null);
-        setDescription(null);
-        props.onClose.apply(this, arguments);
-    }
+    useEffect(() => {
+        setName(currentUser ? currentUser.name : "");
+        setDescription(currentUser ? currentUser.about : "");
+    }, [currentUser, props.isOpen]);
 
-    const isDisabled = (name === "" || description === "");
-
+    useEffect(() => {
+        if (name === "" || description === "") {
+            setIsDisabled(true);
+        } else {
+            setIsDisabled(false);
+        }
+    }, [name, description])
 
     return (
         <PopupWithForm
@@ -44,14 +48,14 @@ function EditProfilePopup(props) {
             name="profile"
             buttonText={props.buttonText}
             isOpen={props.isOpen}
-            onClose={handleClose}
+            onClose={props.onClose}
             onSubmit={handleSubmit}
             isDisabled={isDisabled}
         >
             <label className="popup__form-field">
                 <input
                     type="text"
-                    value={displayName}
+                    value={name}
                     onChange={handleChangeName}
                     name="input-name-profile"
                     placeholder="Название"
@@ -66,7 +70,7 @@ function EditProfilePopup(props) {
             <label className="popup__form-field">
                 <input
                     type="text"
-                    value={displayDescription}
+                    value={description}
                     onChange={handleChangeDescription}
                     name="input-metier-profile"
                     placeholder="Ссылка на картинку"
