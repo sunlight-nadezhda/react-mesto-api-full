@@ -186,27 +186,31 @@ module.exports.login = async (req, res, next) => {
   let user;
   try {
     user = await User.findUserByCredentials(email, password);
+
+    // аутентификация успешна
+    const token = jwt.sign(
+      { _id: user._id },
+      NODE_ENV === 'production' ? JWT_SECRET : 'dev-secret',
+      { expiresIn: '7d' },
+    );
+
+    try {
+      res
+        .cookie('jwt', token, {
+          maxAge: 3600000,
+          httpOnly: true,
+          sameSite: false,
+          secure: true,
+        })
+        .send({ message: 'Вы успешно авторизованы!' });
+    } catch (err) {
+      return next(err);
+    }
   } catch (err) {
-    next(err);
+    return next(err);
   }
 
-  // аутентификация успешна
-  const token = jwt.sign(
-    { _id: user._id },
-    NODE_ENV === 'production' ? JWT_SECRET : 'dev-secret',
-    { expiresIn: '7d' },
-  );
-
-  try {
-    res
-      .cookie('jwt', token, {
-        maxAge: 3600000,
-        httpOnly: true,
-      })
-      .end();
-  } catch (err) {
-    next(err);
-  }
+  return undefined;
 };
 
 // Получает информацию об авторизованном пользователе
@@ -235,4 +239,29 @@ module.exports.getUserInfo = async (req, res, next) => {
   } catch (err) {
     next(err);
   }
+};
+
+// Разлогинивание пользователя
+module.exports.logout = async (req, res, next) => {
+  try {
+    res
+      .clearCookie('jwt', {
+        httpOnly: true,
+        sameSite: false,
+        secure: true,
+      })
+      // .cookie('jwt', {
+      //   domain: 'http://localhost:3000',
+      //   expires: new Date(0),
+      //   maxAge: 0,
+      //   httpOnly: true,
+      //   sameSite: 'none',
+      //   secure: true,
+      // })
+      .send({ message: 'Вы успешно разлогинились!' });
+  } catch (err) {
+    return next(err);
+  }
+
+  return undefined;
 };
