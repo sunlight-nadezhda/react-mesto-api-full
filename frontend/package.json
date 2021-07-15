@@ -15,7 +15,7 @@
     "web-vitals": "^1.1.2"
   },
   "scripts": {
-    "deploy": "npm run build && scp -r ./build/* mysunlight-serv@84.201.136.144:/home/mysunlight-serv/mesto-frontend",
+    "deploy": "npm run build && scp -r ./build/* sunlight-mesto@84.252.130.245:/home/sunlight-mesto/mesto-frontend",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",

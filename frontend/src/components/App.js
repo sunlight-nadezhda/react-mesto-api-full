@@ -149,9 +149,8 @@ function App() {
 
     function onLogin(userData) {
         auth.authorize(userData)
-            .then((data) => {
-                if (data.token) {
-                    localStorage.setItem("token", data.token);
+            .then((response) => {
+                if (response) {
                     setUserData(userData);
                     setLoggedIn(true);
                     history.push("/");
@@ -160,26 +159,30 @@ function App() {
             .catch((err) => console.log(err));
     }
 
-    function checkToken() {
-        const token = localStorage.getItem("token");
-        if (token) {
-            auth.getContent(token)
-                .then((userData) => {
-                    if (userData.data) {
-                        setUserData(userData.data);
-                        setLoggedIn(true);
-                        history.push("/");
-                    }
-                })
-                .catch((err) => console.log(err));
-        }
+    function checkAuth() {
+        auth.checkToken()
+            .then((userData) => {
+                if (userData) {
+                    setUserData(userData);
+                    setLoggedIn(true);
+                    history.push("/");
+                }
+            })
+            .catch((err) => console.log(err));
     }
 
     function onSignOut() {
         if (loggedIn) {
-            localStorage.removeItem("token");
-            setLoggedIn(false);
-            setUserData(null);
+            // localStorage.removeItem("token");
+            auth.logOut()
+                .then((response) => {
+                    if (response) {
+                        // history.push("/signin");
+                        setLoggedIn(false);
+                        setUserData(null);
+                    }
+                })
+                .catch((err) => console.log(err));
         }
     }
 
@@ -217,7 +220,7 @@ function App() {
     }, []);
 
     useEffect(() => {
-        checkToken();
+        checkAuth();
     }, []);
 
     return (
