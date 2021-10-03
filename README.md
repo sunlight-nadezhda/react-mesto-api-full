@@ -40,4 +40,4 @@ backend: mesto-back.nomoredomains.rocks   -->
 * MongoDB
 * Mongoose
 * ESLint
-* React
+* React.js
