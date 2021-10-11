@@ -173,11 +173,9 @@ function App() {
 
     function onSignOut() {
         if (loggedIn) {
-            // localStorage.removeItem("token");
             auth.logOut()
                 .then((response) => {
                     if (response) {
-                        // history.push("/signin");
                         setLoggedIn(false);
                         setUserData(null);
                     }
